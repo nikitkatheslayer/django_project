@@ -18,10 +18,13 @@ from django.conf.urls.static import static
 from django.contrib import admin
 from django.urls import path, include
 
+from authapp.views import ShopUserAPIView
+
 urlpatterns = [
     path('', include('mainapp.urls'), name='main'),
     path('', include('authapp.urls'), name='auth'),
     path('admin/', admin.site.urls),
+    path('api/v1/info_users', ShopUserAPIView.as_view())
 ]
 
 if settings.DEBUG:

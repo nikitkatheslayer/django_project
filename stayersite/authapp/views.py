@@ -1,9 +1,16 @@
+from django.forms import model_to_dict
 from django.http import HttpResponseRedirect
 from django.shortcuts import render
 from django.urls import reverse
+from rest_framework import generics
+from rest_framework.response import Response
+from rest_framework.views import APIView
 
 from authapp.forms import ShopUserLoginForm, ShopUserRegisterForm
 from django.contrib import auth
+
+from authapp.models import ShopUser
+from authapp.serializers import ShopUsersSerializer
 
 
 def login(request):
@@ -43,3 +50,22 @@ def register(request):
     content = {'title': title, 'register_form': register_form}
 
     return render(request, 'authapp/register.html', content)
+
+class ShopUserAPIView(APIView):
+    def get(self, request):
+        lst = ShopUser.objects.all()
+        return Response({'user_info': ShopUsersSerializer(lst, many=True).data})
+
+    def post(self, request):
+        serializer = ShopUsersSerializer(data=request.data)
+        serializer.is_valid(raise_exception=True)
+
+        post_new = ShopUser.objects.create_user(
+            username=request.data['username'],
+            password=request.data['password']
+        )
+
+        return Response({'user_info': ShopUsersSerializer(post_new).data})
+# class ShopUserAPIView(generics.ListAPIView):
+#     queryset = ShopUser.objects.all()
+#     serializer_class = ShopUsersSerializer
