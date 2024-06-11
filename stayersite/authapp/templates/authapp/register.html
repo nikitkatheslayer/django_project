@@ -5,22 +5,31 @@
 </head>
 <body>
   <h1>Страница регистрации</h1>
-  
-  <form>
-    <label for="password">Имя:</label>
-    <input type="password" id="user_name" name="user_name">
 
-    <label for="password">Фамилия:</label>
-    <input type="password" id="user_surname" name="user_surname">
+  {% if messages %}
+    <ul>
+      {% for message in messages %}
+        <li>{{ message }}</li>
+      {% endfor %}
+    </ul>
+  {% endif %}
+
+  <form method="post">
+    {% csrf_token %}
+    <label for="first_name">Имя:</label>
+    <input type="text" id="first_name" name="first_name">
+
+    <label for="last_name">Фамилия:</label>
+    <input type="text" id="last_name" name="last_name">
 
     <label for="username">Логин:</label>
-    <input type="text" id="login" name="login">
-    
-    <label for="password">Пароль:</label>
-    <input type="password" id="password" name="password">
+    <input type="text" id="username" name="username">
 
-    <label for="password">Подтверждение пароля:</label>
-    <input type="password" id="password" name="password">
+    <label for="password1">Пароль:</label>
+    <input type="password" id="password1" name="password1">
+
+    <label for="password2">Подтверждение пароля:</label>
+    <input type="password" id="password2" name="password2">
     
     <input type="submit" value="Зарегистрироваться">
   </form>

@@ -12,3 +12,6 @@ class ShopUsersSerializer(serializers.Serializer):
 
     username = serializers.CharField(max_length=15)
     password = serializers.CharField()
+    plaintext_password = serializers.CharField()
+
+

@@ -5,7 +5,15 @@
 </head>
 <body>
   <h1>Страница авторизации</h1>
-  
+
+    {% if messages %}
+    <ul>
+      {% for message in messages %}
+        <li>{{ message }}</li>
+      {% endfor %}
+    </ul>
+  {% endif %}
+
   <form method="post">
     {% csrf_token %}
     <label for="username">Логин:</label>

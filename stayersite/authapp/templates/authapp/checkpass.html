@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <link rel="stylesheet" type="text/css" href="/static/css/styles.css">
+</head>
+<body>
+  <h1>Страница проверки паролей</h1>
+
+    {% if messages %}
+    <ul>
+      {% for message in messages %}
+        <li>{{ message }}</li>
+      {% endfor %}
+    </ul>
+  {% endif %}
+
+  <form method="post">
+    {% csrf_token %}
+    <label for="password1">Пароль №1:</label>
+    <input type="text" id="password1" name="password1">
+
+    <label for="password2">Пароль №2:</label>
+    <input type="text" id="password2" name="password2">
+
+    <input type="submit" value="Проверить">
+  </form>
+
+</body>
+</html>
